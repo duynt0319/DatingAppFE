@@ -24,7 +24,7 @@
         <div class="dropdown" *ngIf="(accountService.currnetUser$ | async) as user" dropdown>
          
           <a class="dropdown-toggle text-light text-decoration-none ms-2" dropdownToggle>
-            <img src="{{user.photoUrl || '.assets/user.png'}}" alt="user photo"> 
+            <img src="{{user.photoUrl || 'assets/user.png'}}" alt="user photo"> 
             Welcome {{user.username | titlecase}}
           </a>
 
