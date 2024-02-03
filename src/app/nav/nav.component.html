@@ -25,7 +25,7 @@
          
           <a class="dropdown-toggle text-light text-decoration-none ms-2" dropdownToggle>
             <img src="{{user.photoUrl || 'assets/user.png'}}" alt="user photo"> 
-            Welcome {{user.username | titlecase}}
+            Welcome {{user.knownAs}}
           </a>
 
           <div class="dropdown-menu mt-3" *dropdownMenu>
