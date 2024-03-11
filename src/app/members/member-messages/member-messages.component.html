@@ -4,10 +4,14 @@
             No messages yet... say hi by using the message box below
         </div>
 
-        <ul *ngIf="(messageService.messageThread$ | async)!.length > 0" class="chat">
-            <li *ngFor="let message of (messageService.messageThread$ | async)" >
-                <div>
-                    <span class="chat-img float-end">
+        <ul 
+            #scrollMe
+            style="overflow: scroll; height: 500px;"
+            [scrollTop]="scrollMe.scrollHeight"
+            *ngIf="(messageService.messageThread$ | async)!.length > 0" class="chat">
+            <li *ngFor="let message of (messageService.messageThread$ | async)">
+                <div [ngClass]="{'chat-sender': message.senderUserName === username, 'chat-recipient': message.senderUserName !== username}">
+                    <span class="chat-img" [ngClass]="{'float-start': message.senderUserName === username, 'float-end': message.senderUserName !== username}">
                         <img  class="rounded-circle" 
                         src="{{message.senderPhotoUrl || '/assets.user.png'}}" 
                         alt="image of user">
@@ -16,12 +20,10 @@
                         <div class="header">
                             <small class="text-muted">
                                 <span class="fa fa-clock-o"> {{message.messageSent | timeago}}</span>
-
-                                <span class="text-danger" *ngIf="!message.dateRead 
-                                && message.senderUserName !== username"> (unread)</span>
-
-                                <span class="text-success" *ngIf="message.dateRead 
-                                && message.senderUserName !== username"> (read {{message.dateRead | timeago}})</span>
+        
+                                <span class="text-danger" *ngIf="!message.dateRead && message.senderUserName !== username"> (unread)</span>
+        
+                                <span class="text-success" *ngIf="message.dateRead && message.senderUserName !== username"> (read {{message.dateRead | timeago}})</span>
                             </small>
                         </div>
                         <p>{{message.content}}</p>
